@@ -1,0 +1,33 @@
+openapi: 3.0.0
+
+info:
+  title: AI Vision Mock
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:4011
+
+paths:
+  /detect:
+    post:
+      summary: Detect image
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                imageUrl:
+                  type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                result: "face detected"
+        "404":
+          description: Not found
+        "415":
+          description: Unsupported media type

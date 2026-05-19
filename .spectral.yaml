@@ -1,0 +1,24 @@
+extends: spectral:oas
+
+rules:
+
+  operation-operationId:
+    description: Operation must have operationId
+    given: "$.paths[*][*]"
+    then:
+      field: operationId
+      function: truthy
+
+  operation-description:
+    description: Operation should have description
+    given: "$.paths[*][*]"
+    then:
+      field: description
+      function: truthy
+
+  no-$ref-siblings:
+    description: No sibling fields next to $ref
+    given: "$..[?(@.$ref)]"
+    then:
+      field: $ref
+      function: falsy
