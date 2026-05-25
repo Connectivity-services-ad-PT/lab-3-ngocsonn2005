@@ -196,15 +196,14 @@
             "listen": "test",
             "script": {
               "exec": [
-                "if (pm.response.code) {",
-                "  pm.test('AI Vision reachable', () => {",
-                "    pm.expect([200,404,415]).to.include(pm.response.code);",
-                "  });",
-                "} else {",
-                "  pm.test('AI Vision skipped (not running)', () => {",
+                "pm.test('AI Vision reachable or skipped', () => {",
+                "  if (!pm.response || !pm.response.code) {",
+                "    console.log('AI Vision not running → skip');",
                 "    pm.expect(true).to.be.true;",
-                "  });",
-                "}"
+                "  } else {",
+                "    pm.expect([200,404,415]).to.include(pm.response.code);",
+                "  }",
+                "});"
               ]
             }
           }
